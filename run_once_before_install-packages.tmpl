@@ -1,0 +1,8 @@
+#!/bin/env zsh
+{{- if eq .chezmoi.osRelease.id "arch" }}
+sudo pacman -Syu \
+tmux hyprland hyprlock xorg-xwayland git kitty lemurs waybar flameshot grim mise obsidian spotify-player spotifyd obs-studio neovim pipewire wireplumber swaync xdg-desktop-portal-hyprland qt5-wayland qt6-wayland ttf-firacode-nerd starship atuin pass gcc rust gimp libreoffice-fresh python3
+{{- else }}
+
+{{- end }}
+
