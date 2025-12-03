@@ -22,13 +22,13 @@ lfcd() {
 }
 alias lf='lfcd'
 
+{{- if eq .chezmoi.osRelease.id "ubuntu" }}
 # Map wacom tablet to single monitor
 MONITOR=$(xrandr | grep " connected.*597" | cut -d " " -f 1 -)
 xinput list | grep Wacom | sed -n 's/.*id=\([0-9]*\).*/\1/p' | xargs -I {} xsetwacom --set {} MapToOutput $MONITOR
-
 /usr/bin/setxkbmap -option "ctrl:nocaps"
-
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+{{- end }}
 
 ### Added by Zinit's installer
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
@@ -104,12 +104,11 @@ alias c='clear'
 # Shell integrations
 eval "$(fzf --zsh)"
 eval "$(starship init zsh)"
-eval "$(direnv hook zsh)"
 
 command -v "drv" > /dev/null && source <(drv completion zsh)
 command -v "mise" > /dev/null && eval "$(mise activate zsh)"
 command -v "kubectl" > /dev/null && source <(kubectl completion zsh)
-command -v "gh" > /dev/null && source <(gh completion -s zsh) && eval "$(gh copilot alias -- zsh)"
+command -v "gh" > /dev/null && source <(gh completion -s zsh)
 
 . "$HOME/.atuin/bin/env"
 
