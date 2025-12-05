@@ -1,3 +1,6 @@
 [user]
 	email = kaj@fehlhaber.se
 	name = Kaj Fehlhaber
+
+[includeIf "gitdir:~/git/work/"]
+    path = ~/.gitconfig-work
