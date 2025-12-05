@@ -188,17 +188,33 @@ require('lazy').setup {
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
   },
   'JoosepAlviste/nvim-ts-context-commentstring',
-  {
+    {
     'zbirenbaum/copilot.lua',
-    lazy = true,
-    config = function()
-      require('copilot').setup()
-    end,
-    opts = {
-      copilot_model = 'claude-3-7-sonnet',
+    requires = {
+      'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
     },
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          hide_during_completion = true,
+          debounce = 75,
+          trigger_on_accept = true,
+          keymap = {
+            accept = '<A-l>',
+            accept_word = false,
+            accept_line = false,
+            next = '<A-j>',
+            prev = '<A-k>',
+            dismiss = '<A-q>',
+          },
+        },
+      }
+    end,
   },
-
   'towolf/vim-helm',
   'xiyaowong/transparent.nvim',
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
@@ -261,12 +277,6 @@ require('lazy').setup {
     end,
   },
   {
-    'folke/trouble.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons' },
-    opts = {},
-    event = 'VeryLazy',
-  },
-  {
     'nvim-treesitter/nvim-treesitter-context',
     event = 'VeryLazy',
   },
@@ -298,27 +308,6 @@ require('lazy').setup {
       --   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
       -- }
     end,
-  },
-
-  { -- Autoformat
-    'stevearc/conform.nvim',
-    event = 'VeryLazy',
-    opts = {
-      notify_on_error = false,
-      format_on_save = {
-        timeout_ms = 500,
-        lsp_fallback = true,
-      },
-      formatters_by_ft = {
-        lua = { 'stylua' },
-        -- Conform can also run multiple formatters sequentially
-        -- python = { "isort", "black" },
-        --
-        -- You can use a sub-list to tell conform to run *until* a formatter
-        -- is found.
-        -- javascript = { { "prettierd", "prettier" } },
-      },
-    },
   },
   {
     'stevearc/oil.nvim',
