@@ -1,0 +1,5 @@
+AddKeysToAgent yes
+
+{{- if ne .chezmoi.osRelease.id "arch" }}
+Include work
+{{- end }}
