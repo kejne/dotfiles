@@ -5,10 +5,11 @@ export CARGOBIN=$HOME/.cargo/bin
 export PATH=$PATH:/usr/local/go/bin:$HOME/.local/go/bin:$HOME/bin:$HOME/.local/bin:$GOBIN:$CARGOBIN
 export ZSH="$HOME/.oh-my-zsh"
 export BAT_THEME=gruvbox-dark
-export ANTHROPIC_API_KEY=$(pass show anthropic)
-export MISTRAL_API_KEY=$(pass show mistral)
-export TAVILY_API_KEY=$(pass show tavily)
-export GITHUB_TOKEN=$(pass show ghapi)
+# export ANTHROPIC_API_KEY=$(pass show anthropic)
+# export MISTRAL_API_KEY=$(pass show mistral)
+# export TAVILY_API_KEY=$(pass show tavily)
+export MISE_GITHUB_TOKEN=$(pass show gh-mise)
+# export GITHUB_TOKEN=$(pass show ghapi)
 
 # Source all files under $HOME/.config/sources/
 for file in $HOME/.config/sources/*.sh; do
@@ -102,15 +103,12 @@ alias vim='nvim'
 alias c='clear'
 alias cz=chezmoi
 
-# Shell integrations
-eval "$(fzf --zsh)"
-eval "$(starship init zsh)"
-
 command -v "drv" > /dev/null && source <(drv completion zsh)
 command -v "mise" > /dev/null && eval "$(mise activate zsh)"
 command -v "kubectl" > /dev/null && source <(kubectl completion zsh)
 command -v "gh" > /dev/null && source <(gh completion -s zsh)
 
-. "$HOME/.atuin/bin/env"
-
+# Shell integrations
+eval "$(fzf --zsh)"
+eval "$(starship init zsh)"
 eval "$(atuin init zsh)"
