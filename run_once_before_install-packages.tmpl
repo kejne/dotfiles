@@ -1,9 +1,36 @@
 #!/bin/env zsh
 {{- if eq .chezmoi.osRelease.id "arch" }}
 sudo pacman -Syu \
-tmux hyprland hyprlock xorg-xwayland git kitty lemurs waybar flameshot grim mise obsidian spotify-player spotifyd obs-studio neovim pipewire wireplumber swaync xdg-desktop-portal-hyprland qt5-wayland qt6-wayland ttf-firacode-nerd starship atuin pass gcc rust gimp libreoffice-fresh python3 rofi btop
+tmux hyprland hyprlock xorg-xwayland git kitty lemurs waybar flameshot grim mise obsidian spotify-player spotifyd obs-studio neovim pipewire wireplumber swaync xdg-desktop-portal-hyprland qt5-wayland qt6-wayland ttf-firacode-nerd starship atuin pass gcc rust gimp libreoffice-fresh python3 rofi btop pipewire-pulse pipewire-alsa pavucontrol sof-firmware docker docker-compose
+
+#########################
+# PIP Stuff
+#########################
+pip install --user pipx
+pipx run --spec ranger-fm ranger
+
+#########################
+# YAY
+#########################
+if ! command -v yay >/dev/null 2>&1; then 
+    sudo pacman -S --needed git base-devel && tmpdir=$(mktemp -d) && git clone https://aur.archlinux.org/yay.git "$tmpdir/yay" && (cd "$tmpdir/yay" && makepkg -si) && rm -rf "$tmpdir" || true;
+fi
+
+#########################
+# AUR packages
+#########################
+
+yay nomacs spotify-launcher
+
+#########################
+# SYSTEMCTL
+#########################
+systemctl --user enable --now pipewire pipewire-pulse wireplumber
 {{- else }}
 
 {{- end }}
 
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm || true
+#########################
+# TMUX
+#########################
+[ -d ~/.tmux/plugins/tpm ] || git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
