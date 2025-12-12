@@ -15,53 +15,61 @@ awssh() {
   fi
 }
 
-f() {
-	SEARCH_PATH=$HOME/git/src/github.com/
-	if [[ $# -ge 1 ]]; then
-		selected=$(find $SEARCH_PATH -mindepth 1 -type d 2>/dev/null | \
-			sed "s|^$SEARCH_PATH||" | \
-			fzf --filter "$(echo $@)" | head -1
-		)
-	else
-		selected=$(find $SEARCH_PATH -mindepth 1 -type d 2>/dev/null | \
-			sed "s|^$SEARCH_PATH||" | \
-			fzf --tmux
-		)
+####################################################
+# Quickly find files in default locations
+####################################################
+ff() {
+	local search_root=${1%/}
+	local maxdepth=""
+	shift
+
+	if [[ $# -gt 0 && $1 == --maxdepth=* ]]; then
+		maxdepth=${1#--maxdepth=}
+		shift
 	fi
 
-	# Add home path back
-	if [[ -n "$selected" ]]; then
-		selected="$SEARCH_PATH/$selected"
+	local filter_args=("$@")
+	local find_cmd=(find "$search_root" -mindepth 1)
+	if [[ -n $maxdepth ]]; then
+		find_cmd+=(-maxdepth "$maxdepth")
 	fi
+	find_cmd+=(-type d)
 
-	if [[ -z $selected ]]; then
-		return
+	local sed_prefix="$search_root/"
+	local selected
+	selected=$(
+		"${find_cmd[@]}" 2>/dev/null | \
+			sed "s|^${sed_prefix}||" | \
+			{ if [[ ${#filter_args[@]} -gt 0 ]]; then
+				fzf --filter "$(printf "%s " "${filter_args[@]}")" | head -1
+			  else
+				fzf --tmux
+			  fi
+			}
+	)
+
+	if [[ -n $selected ]]; then
+		selected="$search_root/$selected"
+		cd "$selected"
 	fi
+}
 
-	cd "$selected"
+fw() {
+	ff "$HOME/git/work" "$@"
+}
+
+fp() {
+	ff "$HOME/git/personal" "$@"
+}
+
+fh() {
+	ff "$HOME" --maxdepth=5 "$@"
 }
 
 h() {
-	if [[ $# -ge 1 ]]; then
-		selected=$(find ~/ -maxdepth 5 -mindepth 1 -type d 2>/dev/null | \
-			sed "s|^$HOME/||" | \
-			fzf --filter "$(echo $@)" | head -1
-		)
-	else
-		selected=$(find ~/ -maxdepth 5 -mindepth 1 -type d 2>/dev/null | \
-			sed "s|^$HOME/||" | \
-			fzf --tmux
-		)
-	fi
+	fh "$@"
+}
 
-	# Add home path back
-	if [[ -n "$selected" ]]; then
-		selected="$HOME/$selected"
-	fi
-
-	if [[ -z $selected ]]; then
-		return
-	fi
-
-	cd "$selected"
+f() {
+	fw "$@"
 }

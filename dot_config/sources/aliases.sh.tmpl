@@ -1,0 +1,27 @@
+{{- if eq .chezmoi.osRelease.id "arch" }}
+alias vpnup='protonvpn-cli c -f'
+alias vpndown='protonvpn-cli d'
+{{- else }}
+alias vpnup='nmcli con up id WirelessCar_vpn'
+alias vpndown='nmcli con down id WirelessCar_vpn'
+{{- end }}
+
+alias zshconfig="vim ~/.zshrc"
+alias ..='cd ..'
+alias ...='cd ../..'
+
+alias ls=eza
+alias ll='eza -al'
+alias k=kubectl
+alias t=task
+alias m=mise
+alias v=nvim
+alias ks='k9s'
+alias skn='sk -n'
+alias skN='sk -N'
+alias cz=chezmoi
+
+# Mise
+alias mtl='mise tasks ls'
+alias mr='mise run'
+alias m=mise

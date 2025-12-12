@@ -16,6 +16,10 @@ return {
     },
     workspaces = {
       {
+        name = 'work',
+        path = '~/second-brain/work',
+      },
+      {
         name = 'personal',
         path = '~/second-brain/personal',
       },
