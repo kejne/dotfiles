@@ -1,12 +1,14 @@
 [user]
 	email = kaj@fehlhaber.se
 	name = Kaj Fehlhaber
-        signingKey = 01191FE4561B0FC8
-
+	signingKey = 01191FE4561B0FC8
 [commit]
 	gpgsign = true
 [pull]
 	rebase = true
+[push]
+    autoSetupRemote = true
+    default = current
 
 [includeIf "gitdir:~/git/work/"]
     path = ~/.gitconfig.work
