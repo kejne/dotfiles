@@ -1,5 +1,17 @@
 AddKeysToAgent yes
 
-{{- if ne .chezmoi.osRelease.id "arch" }}
-Include work
-{{- end }}
+Host github-company
+    HostName github.com
+    User git
+    IdentitiesOnly yes
+    IdentityFile ~/.ssh/id_ed25519
+
+Host github.com
+    HostName github.com
+    IdentitiesOnly yes
+
+Match Host github.com user git
+    IdentityFile ~/.ssh/id_ed25519_personal
+
+Match Host github.com user org-*
+    IdentityFile ~/.ssh/id_github_wirelesscar_sweden_ab

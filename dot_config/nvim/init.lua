@@ -123,25 +123,12 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
--- local function load_plugins_from_directory(directory)
---   local plugin_files = vim.fn.glob(directory .. '/*.lua', true, true)
---   local plugins = {}
---   for _, file in ipairs(plugin_files) do
---     local plugin_spec = dofile(file)
---     if plugin_spec then
---       table.insert(plugins, plugin_spec)
---     end
---   end
---   return plugins
--- end
---
--- local plugin_specs_from_dir = load_plugins_from_directory(vim.fn.stdpath 'config' .. '/plugin')
-
 require('lazy').setup {
   { import = 'plugins' },
   rocks = {
     hererocks = true,
   },
+  { 'towolf/vim-helm'},
   {
     'rest-nvim/rest.nvim',
     dependencies = {
@@ -188,34 +175,6 @@ require('lazy').setup {
     -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
   },
   'JoosepAlviste/nvim-ts-context-commentstring',
-    {
-    'zbirenbaum/copilot.lua',
-    requires = {
-      'copilotlsp-nvim/copilot-lsp', -- (optional) for NES functionality
-    },
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    config = function()
-      require('copilot').setup {
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          hide_during_completion = true,
-          debounce = 75,
-          trigger_on_accept = true,
-          keymap = {
-            accept = '<A-l>',
-            accept_word = false,
-            accept_line = false,
-            next = '<A-j>',
-            prev = '<A-k>',
-            dismiss = '<A-q>',
-          },
-        },
-      }
-    end,
-  },
-  'towolf/vim-helm',
   'xiyaowong/transparent.nvim',
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
   'tpope/vim-fugitive',
@@ -298,16 +257,30 @@ require('lazy').setup {
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
       require('which-key').setup()
-
-      -- Document existing key chains
-      -- require('which-key').register {
-      --   ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-      --   ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-      --   ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-      --   ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-      --   ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
-      -- }
     end,
+  },
+
+  { -- Autoformat
+    'stevearc/conform.nvim',
+    event = 'VeryLazy',
+    opts = {
+      notify_on_error = false,
+      format_on_save = {
+        timeout_ms = 500,
+        lsp_fallback = true,
+      },
+      formatters_by_ft = {
+        lua = { 'stylua' },
+        -- Conform can also run multiple formatters sequentially
+        python = { "isort", "black" },
+        --
+        -- You can use a sub-list to tell conform to run *until* a formatter
+        -- is found.
+        go = {  'gofmt' },
+        yaml = { { "prettierd", "prettier" } },
+        javascript = { { "prettierd", "prettier" } },
+      },
+    },
   },
   {
     'stevearc/oil.nvim',
@@ -397,7 +370,7 @@ require('lazy').setup {
   },
 }
 
-require 'lsp'
+-- require 'lsp'
 -- require 'utils.dap.go'
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

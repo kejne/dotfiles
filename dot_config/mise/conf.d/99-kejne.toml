@@ -23,8 +23,13 @@ starship = "latest"
 "ubi:mrjosh/helm-ls" = "latest"
 "npm:yarn" = "latest"
 "npm:yaml-language-server" = "latest"
+# "npm:github/copilot" = "latest"
+# "npm:openai/codex" = "latest"
 ansible = "latest"
 velero = "latest"
+crossplane = "latest"
+kubeconform = "latest"
+kuttl = "latest"
 
 [settings]
 experimental = true

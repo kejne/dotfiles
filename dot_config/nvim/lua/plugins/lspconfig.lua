@@ -90,7 +90,6 @@ return { -- LSP Configuration & Plugins
       -- clangd = {},
       gopls = {},
       terraformls = {},
-      helm_ls = {},
       -- pyright = {},
       -- rust_analyzer = {},
       -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -101,6 +100,29 @@ return { -- LSP Configuration & Plugins
       -- But for many setups, the LSP (`tsserver`) will work just fine
       -- tsserver = {},
       --
+
+      markdown_oxide = {
+        -- Ensure that dynamicRegistration is enabled! This allows the LS to take into account actions like the
+        -- Create Unresolved File code action, resolving completions for unindexed code blocks, ...
+        capabilities = vim.tbl_deep_extend('force', capabilities, {
+          workspace = {
+            didChangeWatchedFiles = {
+              dynamicRegistration = true,
+            },
+          },
+        }),
+        on_attach = on_attach, -- configure your on attach config
+      },
+
+      helm_ls = {
+        settings = {
+          ['helm-ls'] = {
+            yamlls = {
+              path = 'yaml-language-server',
+            },
+          },
+        },
+      },
 
       lua_ls = {
         -- cmd = {...},
@@ -156,6 +178,8 @@ return { -- LSP Configuration & Plugins
       'templ',
       'html-lsp',
       'htmx-lsp',
+      'yaml-language-server',
+      'copilot-language-server'
     })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
