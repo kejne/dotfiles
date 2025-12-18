@@ -12,3 +12,6 @@
 
 [includeIf "gitdir:~/git/work/"]
     path = ~/.gitconfig.work
+
+[includeIf "gitdir:~/go/bin/pkg/"]
+    path = ~/.gitconfig.work
