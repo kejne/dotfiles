@@ -1,0 +1,10 @@
+model = "gpt-5.2-codex"
+model_reasoning_effort = "medium"
+
+[projects."/home/kejne/git/personal/github.com/kejne"]
+trust_level = "trusted"
+
+[projects."/home/kejne/Documents/Family"]
+trust_level = "trusted"
+
+notify = ["notify-send", "CODEX IS COMPLETE"]
