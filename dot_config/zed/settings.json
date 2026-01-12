@@ -1,0 +1,115 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "git_panel": {
+    "dock": "right"
+  },
+  "file_finder": {
+    "modal_max_width": "medium"
+  },
+  "preview_tabs": {
+    "enable_preview_from_file_finder": true
+  },
+  "edit_predictions": {
+    "mode": "eager",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null,
+      "enterprise_uri": null
+    },
+    "enabled_in_text_threads": false
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "agent": {
+    "always_allow_tool_actions": true,
+    "use_modifier_to_send": true,
+    "play_sound_when_agent_done": true,
+    "profiles": {
+      "github": {
+        "name": "Github",
+        "tools": {
+          "find_path": true,
+          "fetch": true,
+          "delete_path": true,
+          "copy_path": true,
+          "create_directory": true,
+          "now": true,
+          "read_file": true,
+          "list_directory": true,
+          "grep": true,
+          "edit_file": true
+        },
+        "enable_all_context_servers": false,
+        "context_servers": {
+          "mcp-server-github": {
+            "tools": {
+              "get_file_contents": true,
+              "list_pull_requests": true,
+              "list_issue_types": true,
+              "list_issues": true,
+              "list_commits": true,
+              "list_branches": true,
+              "get_pull_request_diff": true,
+              "get_pull_request_reviews": true,
+              "get_pull_request_review_comments": true,
+              "get_pull_request_files": true,
+              "get_pull_request": true,
+              "get_issue_comments": true,
+              "get_issue": true
+            }
+          }
+        }
+      }
+    },
+    "default_profile": "write",
+    "inline_assistant_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
+    },
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4.1"
+    }
+  },
+  "vim_mode": true,
+  "vim": {
+    "toggle_relative_line_numbers": true
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
+  "theme": {
+    "mode": "system",
+    "light": "Gruvbox Dark Hard",
+    "dark": "One Dark"
+  },
+  "file_types": {
+    "Helm": [
+      "**/templates/**/*.tpl",
+      "**/templates/**/*.yaml",
+      "**/templates/**/*.yml",
+      "**/helmfile.d/**/*.yaml",
+      "**/helmfile.d/**/*.yml",
+      "**/values*.yaml"
+    ]
+  },
+  "lsp": {
+    "helm_ls": {
+      "settings": {
+        "helm-ls": {
+          "logLevel": "info",
+          "yamlls": {
+            "enabled": true
+          }
+        }
+      }
+    }
+  }
+}

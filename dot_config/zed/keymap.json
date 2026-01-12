@@ -1,0 +1,136 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-shift-p": "project_panel::ToggleFocus",
+      "ctrl-shift-t": "terminal_panel::ToggleFocus",
+      "ctrl-s": "workspace::SaveAll",
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "/": "vim::Search",
+      "space h": "workspace::ActivatePaneLeft",
+      "space j": "workspace::ActivatePaneDown",
+      "space l": "workspace::ActivatePaneRight",
+      "space k": "workspace::ActivatePaneUp",
+      "space g c": "git::ExpandCommitEditor",
+      "space g p": "git::Pull",
+      "space g P": "git::Push",
+      "space g a": "git::StageAll",
+      "space e": "workspace::ToggleLeftDock",
+      "space a": "workspace::ToggleRightDock",
+      "space c n": "agent::ToggleNewThreadMenu",
+      "space v": "pane::SplitVertical",
+      "space -": "pane::SplitHorizontal",
+      "space g g": [
+        "task::Spawn",
+        { "task_name": "LazyGit", "reveal_target": "center" },
+      ],
+      "space f f": [
+        "task::Spawn",
+        { "task_name": "Television File Finder", "reveal_target": "center" },
+      ],
+      "space b b": "pane::CloseActiveItem",
+      "space b o": "pane::CloseOtherItems",
+      "Ctrl-s": "workspace::SaveAll",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "j j": ["workspace::SendKeystrokes", "escape"],
+    },
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "space a": "agent::AddSelectionToThread",
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction)",
+    "bindings": {
+      "ctrl-y": "editor::AcceptEditPrediction",
+    },
+  },
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "A": "project_panel::NewDirectory",
+      "r": "project_panel::Rename",
+      "x": "project_panel::Delete",
+      "d": "project_panel::Cut",
+      "y": "project_panel::Copy",
+      "p": "project_panel::Paste",
+      // Close project panel as project file panel on the right
+      "space e": "workspace::ToggleLeftDock",
+    },
+  },
+  {
+    "context": "((Editor && mode == full) && edit_prediction)",
+    "bindings": {
+      "ctrl-j": "editor::NextEditPrediction",
+      "ctrl-k": "editor::PreviousEditPrediction",
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-alt-o": [
+        "projects::OpenRecent",
+        {
+          "create_new_window": true,
+        },
+      ],
+    },
+  },
+  {
+    "context": "Workspace",
+    "bindings": {
+      "alt-o": [
+        "projects::OpenRecent",
+        {
+          "create_new_window": false,
+        },
+      ],
+    },
+  },
+  {
+    "context": "(VimControl && !menu)",
+    "bindings": {
+      "ctrl-alt-shift-q": "vim::Search",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-l": null,
+    },
+  },
+  {
+    "context": "(Editor && mode == full)",
+    "bindings": {
+      "ctrl-h": null,
+    },
+  },
+  {
+    "context": "BufferSearchBar",
+    "bindings": {
+      "ctrl-h": null,
+    },
+  },
+]
